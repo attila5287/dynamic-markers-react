@@ -1,0 +1,22 @@
+{
+  "name": "mapbox-react-typescript-template",
+  "description": "A ready-to-use template for building Mapbox GL JS applications with React, TypeScript, and Vite",
+  "author": "Your Name",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/mapbox-react-typescript-template.git"
+  },
+  "keywords": [
+    "mapbox",
+    "react",
+    "typescript",
+    "vite",
+    "template",
+    "maps",
+    "gis"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+} 

@@ -2,6 +2,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import Marker from "./components/Marker.tsx";
+import Popup from "./components/Popup.tsx";
 import "./App.css";
 
 function Map() {
@@ -107,6 +108,9 @@ function Map() {
           onClick={handleMarkerClick}
         />
       ))}
+      {map.current && activeFeature && (
+        <Popup map={map.current} activeFeature={activeFeature} />
+      )}
     </>
   );
 }

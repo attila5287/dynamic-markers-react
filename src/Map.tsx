@@ -1,14 +1,14 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-
+import Marker from "./components/Marker.tsx";
 import "./App.css";
 
 function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [earthquakeData, setEarthquakeData] = useState();
-
+  const [earthquakeData, setEarthquakeData] = useState<any>(null);
+  const [activeFeature, setActiveFeature] = useState<any>(null);
   const getBboxAndFetch = useCallback(async () => {
     const bounds = map.current?.getBounds();
 
@@ -53,7 +53,7 @@ function Map() {
       container: mapContainer.current!,
       style: "mapbox://styles/mapbox/streets-v12",
       center: [116.14815, -1.99628], // Indonesia coordinates
-      zoom: 5.5,
+      zoom: 5.0,
     });
 
     console.log("Map instance created:", map.current);
@@ -89,7 +89,26 @@ function Map() {
     }
   }, [earthquakeData]);
 
-  return <div ref={mapContainer} id="map-container" />;
+  const handleMarkerClick = (feature: any) => {
+    console.log("Marker clicked:", feature);
+    setActiveFeature(feature);
+  };
+
+  return (
+    <>
+      <div ref={mapContainer} id="map-container" />
+      
+      {map.current && earthquakeData && earthquakeData.features?.map((feature: any) => (
+        <Marker 
+          key={feature.id}
+          map={map.current!}
+          feature={feature}
+          isActive={activeFeature?.id === feature.id}
+          onClick={handleMarkerClick}
+        />
+      ))}
+    </>
+  );
 }
 
 export default Map;
